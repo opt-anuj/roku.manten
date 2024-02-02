@@ -1,14 +1,17 @@
-   <!-- Google Tag Manager -->
+
+
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    
+       <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-K48NXWW');</script>
 <!-- End Google Tag Manager -->
-
-<!doctype html>
-<html class="no-js" lang="{{ request.locale.iso_code }}">
-  <head>
+    
  {%- render 'layouthub_header' -%}
     {% render 'header_file' %}
     {% render 'pagefly-head' %}
@@ -39,11 +42,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     {% render 'meta-tags' %}
 
-    <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    <script type="lazyload_js" data-src="{{ 'constants.js' | asset_url }}"></script>
+    <script type="lazyload_js" data-src="{{ 'pubsub.js' | asset_url }}"></script>
+    <script type="lazyload_js" data-src="{{ 'global.js' | asset_url }}"></script>
     {%- if settings.animations_reveal_on_scroll -%}
-      <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
+      <script type="lazyload_js" data-src="{{ 'animations.js' | asset_url }}"></script>
     {%- endif -%}
 
     {%- if request.design_mode or template contains 'cart' or template contains 'checkout' -%}
@@ -268,7 +271,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       }
     {% endstyle %}
 
-    {{ 'base.css' | asset_url | stylesheet_tag }}
+   {%- render 'base-css' -%}
+    <link data-href="{{ 'base.css' | asset_url }}" rel="stylesheet" />
 
     {%- unless settings.type_body_font.system? -%}
       <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
@@ -277,9 +281,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
     {%- endunless -%}
 
+  <script data-appco-type="module" type="lazyload_js" data-src="https://roku.manten.world/cdn/shopifycloud/portable-wallets/latest/portable-wallets.ja.js" onError="__shopify_portable_wallets_onerror__(this)"></script>
+
     {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
       {{ 'component-localization-form.css' | asset_url | stylesheet_tag: preload: true }}
-      <script src="{{ 'localization-form.js' | asset_url }}" defer="defer"></script>
+      <script type="lazyload_js" data-src="{{ 'localization-form.js' | asset_url }}"></script>
     {%- endif -%}
 
     {%- if settings.predictive_search_enabled -%}
@@ -360,7 +366,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </script>
 
     {%- if settings.predictive_search_enabled -%}
-      <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+      <script type="lazyload_js" data-src="{{ 'predictive-search.js' | asset_url }}"></script>
     {%- endif -%}
     {% render 'footer_file' %}
   {%- render 'layouthub_footer' -%} 
